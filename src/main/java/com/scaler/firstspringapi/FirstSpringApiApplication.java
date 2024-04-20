@@ -11,7 +11,7 @@ public class FirstSpringApiApplication {
     public static void main(String[] args) {
 
         SpringApplication.run(FirstSpringApiApplication.class, args);
-
+       System.out.println("PR Request");
     }
 
 }
