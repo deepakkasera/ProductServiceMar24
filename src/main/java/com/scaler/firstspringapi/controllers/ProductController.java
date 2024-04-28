@@ -2,40 +2,30 @@ package com.scaler.firstspringapi.controllers;
 
 import com.scaler.firstspringapi.models.Product;
 import com.scaler.firstspringapi.services.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
-import java.sql.Array;
-import java.util.ArrayList;
 import java.util.List;
 
-//localhost:8080/products
-@RestController //This controller is going to REST HTTP API's
+@RestController
 @RequestMapping("/products")
+@AllArgsConstructor
 public class ProductController {
+
     private ProductService productService;
-
-    public ProductController(ProductService productService) {
-        this.productService = productService;
+    @GetMapping("/{id}")//localhost:8080/product/1
+    public Product getProductById(@PathVariable Long id){
+       return productService.getProductById(id);
     }
 
-    //localhost:8080/products/1
-    @GetMapping("/{id}")
-    public Product getProductById(@PathVariable("id") Long id) {
-        return productService.getProductById(id);
-    }
-
-    // localhost:8080/products
     @GetMapping()
-    public List<Product> getAllProducts() {
-        return new ArrayList<>();
+    public List<Product> getAllProducts(){
+       return productService.getAllProducts();
     }
 
-    //createProduct
-    //deleteProduct
-    //updateProduct -> Partial Update (PATCH)
-    //replaceProduct -> Replace (PUT)
+    @PatchMapping()
+    public Product updateProduct(@RequestBody Product product){
+        return productService.updateProduct(product);
+    }
+
 }

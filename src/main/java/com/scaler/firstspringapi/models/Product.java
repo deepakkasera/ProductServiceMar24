@@ -1,12 +1,12 @@
 package com.scaler.firstspringapi.models;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
 @Setter
+@Getter
 public class Product {
+
     private Long id;
     private String title;
     private String description;
