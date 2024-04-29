@@ -4,13 +4,7 @@ import com.scaler.firstspringapi.dtos.FakeStoreProductDto;
 import com.scaler.firstspringapi.exceptions.ProductNotFoundException;
 import com.scaler.firstspringapi.models.Category;
 import com.scaler.firstspringapi.models.Product;
-import jakarta.persistence.Cache;
-import lombok.AllArgsConstructor;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpMethod;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpMessageConverterExtractor;
 import org.springframework.web.client.RequestCallback;
@@ -18,9 +12,8 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
-@AllArgsConstructor
-public class FakeStoreProductService implements  ProductService{
+@Service("fakeStoreProductService")
+public class FakeStoreProductService implements ProductService {
 
     private RestTemplate restTemplate;
     private Product convertFakeStoreDtoToProduct(FakeStoreProductDto dto){
@@ -71,6 +64,11 @@ public class FakeStoreProductService implements  ProductService{
     }
 
     @Override
+    public Product updateProduct(Long id, Product product) {
+        return null;
+    }
+
+    @Override
     public Product replaceProduct(Long id, Product product) {
         FakeStoreProductDto fakeStoreProductDto = new FakeStoreProductDto();
         fakeStoreProductDto.setTitle(product.getTitle());
@@ -86,5 +84,18 @@ public class FakeStoreProductService implements  ProductService{
 
         return convertFakeStoreDtoToProduct(response);
     }
+
+
+    @Override
+    public Product createProduct(Product product) {
+        return null;
+    }
+
+    @Override
+    public void deleteProduct() {
+
+    }
+
+
 
 }

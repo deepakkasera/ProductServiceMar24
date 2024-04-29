@@ -3,25 +3,29 @@ package com.scaler.firstspringapi.controllers;
 import com.scaler.firstspringapi.exceptions.ProductNotFoundException;
 import com.scaler.firstspringapi.models.Product;
 import com.scaler.firstspringapi.services.ProductService;
-
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.objenesis.SpringObjenesis;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/products")
-@AllArgsConstructor
+
 public class ProductController {
 
     private ProductService productService;
+    public ProductController(@Qualifier("selfProductService") ProductService productService) {
+        this.productService = productService;
+    }
+
 
     //localhost:8080/products/1
     @GetMapping("/{id}")
@@ -32,6 +36,8 @@ public class ProductController {
 //            responseEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 //            return responseEntity;
 //        }
+
+//        Product sampleProduct = new Product();
 
         responseEntity = new ResponseEntity<>(product, HttpStatus.OK);
         return responseEntity;
@@ -64,6 +70,16 @@ public class ProductController {
     @PutMapping("/{id}")
     public Product replaceProduct(@PathVariable("id") Long id, @RequestBody Product product) {
         return productService.replaceProduct(id, product);
+    }
+
+    @ExceptionHandler(FileNotFoundException.class)
+    public ResponseEntity<Void> handleSomeException() {
+        return null;
+    }
+
+    @PostMapping
+    public Product createProduct(@RequestBody Product product) { // can use DTO as well.
+        return productService.createProduct(product);
     }
 
 }
