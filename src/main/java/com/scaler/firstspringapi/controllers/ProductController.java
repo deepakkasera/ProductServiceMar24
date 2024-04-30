@@ -3,6 +3,8 @@ package com.scaler.firstspringapi.controllers;
 import com.scaler.firstspringapi.exceptions.ProductNotFoundException;
 import com.scaler.firstspringapi.models.Product;
 import com.scaler.firstspringapi.services.ProductService;
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,17 +13,19 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
+
 import java.util.List;
 
-//localhost:8080/products
-@RestController //This controller is going to REST HTTP API's
+@RestController
 @RequestMapping("/products")
-public class ProductController {
-    private ProductService productService;
 
+public class ProductController {
+
+    private ProductService productService;
     public ProductController(@Qualifier("selfProductService") ProductService productService) {
         this.productService = productService;
     }
+
 
     //localhost:8080/products/1
     @GetMapping("/{id}")
@@ -77,4 +81,5 @@ public class ProductController {
     public Product createProduct(@RequestBody Product product) { // can use DTO as well.
         return productService.createProduct(product);
     }
+
 }

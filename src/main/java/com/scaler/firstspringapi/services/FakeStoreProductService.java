@@ -9,32 +9,26 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpMessageConverterExtractor;
 import org.springframework.web.client.RequestCallback;
 import org.springframework.web.client.RestTemplate;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @Service("fakeStoreProductService")
 public class FakeStoreProductService implements ProductService {
+
     private RestTemplate restTemplate;
-
-    FakeStoreProductService(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-    }
-
-    private Product convertFakeStoreDtoToProduct(FakeStoreProductDto dto) {
+    private Product convertFakeStoreDtoToProduct(FakeStoreProductDto dto){
         Product product = new Product();
         product.setId(dto.getId());
         product.setTitle(dto.getTitle());
         product.setPrice(dto.getPrice());
-        product.setDescription(dto.getDescription());
         product.setImage(dto.getImage());
-
+        product.setDescription(dto.getDescription());
         Category category = new Category();
         category.setTitle(dto.getCategory());
         product.setCategory(category);
-
         return product;
     }
+
 
     @Override
     public Product getProductById(Long id) throws ProductNotFoundException{
@@ -91,6 +85,7 @@ public class FakeStoreProductService implements ProductService {
         return convertFakeStoreDtoToProduct(response);
     }
 
+
     @Override
     public Product createProduct(Product product) {
         return null;
@@ -100,4 +95,7 @@ public class FakeStoreProductService implements ProductService {
     public void deleteProduct() {
 
     }
+
+
+
 }

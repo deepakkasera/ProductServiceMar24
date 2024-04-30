@@ -6,7 +6,9 @@ import com.scaler.firstspringapi.models.Product;
 
 import java.util.List;
 
+
 public interface ProductService {
+
     Product getProductById(Long id) throws ProductNotFoundException;
 
     List<Product> getAllProducts();
@@ -18,4 +20,5 @@ public interface ProductService {
     Product createProduct(Product product);
 
     void deleteProduct();
+
 }

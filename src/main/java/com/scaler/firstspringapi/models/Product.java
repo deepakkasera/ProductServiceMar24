@@ -1,5 +1,7 @@
 package com.scaler.firstspringapi.models;
 
+import lombok.Getter;
+import lombok.Setter;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -11,6 +13,7 @@ import java.util.List;
 @Setter
 @Entity
 public class Product extends BaseModel {
+
     private String title;
     private String description;
     private double price;
